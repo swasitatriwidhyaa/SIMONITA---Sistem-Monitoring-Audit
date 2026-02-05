@@ -78,7 +78,7 @@
 
                 <!-- LOGO -->
                 <a class="navbar-brand" href="{{ url('/home') }}">
-                    <img src="/image/ptpn.png" alt="Logo PTPN">
+                    <img src="/image/ptpn7.png" alt="Logo PTPN">
                     PTPN 1 Regional 7
                 </a>
 

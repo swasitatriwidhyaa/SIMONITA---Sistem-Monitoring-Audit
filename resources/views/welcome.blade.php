@@ -146,7 +146,7 @@
             <div class="col-lg-7 left-section">
 
                 <div class="d-flex align-items-center mb-5">
-                    <img src="/image/ptpn.png" alt="Logo PTPN" class="img-fluid" style="height: 50px;">
+                    <img src="/image/ptpn7.png" alt="Logo PTPN" class="img-fluid" style="height: 50px;">
 
                     <span class="brand-text ms-2">PTPN 1 Regional 7</span>
                 </div>
