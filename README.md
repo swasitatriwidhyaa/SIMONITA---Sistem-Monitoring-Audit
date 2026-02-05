@@ -38,8 +38,8 @@ Aplikasi ini dikembangkan menggunakan **Laravel 12** dan **PHP 8.2**, serta dira
 | Komponen | Teknologi |
 |----------|-----------|
 | Backend | Laravel 12 |
-| Bahasa | PHP 8.2+ |
-| Database | MySQL / MariaDB |
+| Bahasa | PHP ≥ 8.4 |
+| Database | MySQL / PGSQL |
 | Frontend | Blade + Bootstrap |
 | Export PDF | barryvdh/laravel-dompdf |
 | Export Excel | maatwebsite/excel |
@@ -50,23 +50,12 @@ Aplikasi ini dikembangkan menggunakan **Laravel 12** dan **PHP 8.2**, serta dira
 ## ⚙️ System Requirements
 
 ### Server
-- PHP ≥ 8.2
+- PHP ≥ 8.4
 - Composer
-- MySQL/MariaDB
+- MySQL/PGSQL
 - Apache/Nginx
 - Node.js (optional untuk asset build)
 
 ### Client
 - Browser modern (Chrome/Edge/Firefox)
 - Koneksi internet
-
----
-
-## 🚀 Cara Instalasi
-
-Ikuti langkah berikut untuk menjalankan project di lokal:
-
-### 1️⃣ Clone Repository
-```bash
-git clone <url-repository>
-cd nama-project
