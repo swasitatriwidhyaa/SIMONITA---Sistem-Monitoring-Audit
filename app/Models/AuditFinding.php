@@ -59,12 +59,15 @@ class AuditFinding extends Model
     /**
      * Accessor untuk menampilkan submitted_at dalam timezone WIB
      */
-    public function getSubmittedAtForDisplayAttribute()
+    /**
+     * Accessor Otomatis: Mengonversi waktu DB (UTC) ke WIB saat dipanggil
+     */
+    public function getSubmittedAtAttribute($value)
     {
-        if ($this->submitted_at) {
-            return $this->submitted_at->timezone('Asia/Jakarta');
-        }
-        return null;
+        if (!$value) return null;
+
+        // Menjamin data dari DB dibaca sebagai UTC lalu dikonversi ke Jakarta
+        return \Carbon\Carbon::parse($value, 'UTC')->timezone('Asia/Jakarta');
     }
 
     public function audit()

@@ -417,26 +417,13 @@
                                                             </a>
                                                         </div>
                                                     @endforeach
-                                                    @if($finding->submitted_at)
-                                                        <div class="text-muted"
-                                                            style="font-size: 0.75rem; margin-top: 8px; padding-top: 8px; border-top: 1px solid #ddd;">
-                                                            @php
-                                                                // Ensure proper UTC to WIB conversion
-                                                                $submittedTime = $finding->submitted_at;
-                                                                if (is_string($submittedTime)) {
-                                                                    $submittedTime = \Carbon\Carbon::parse($submittedTime, 'UTC');
-                                                                } else {
-                                                                    // If already Carbon, ensure it's treated as UTC first
-                                                                    if (!$submittedTime->timezone) {
-                                                                        $submittedTime = $submittedTime->setTimezone('UTC');
-                                                                    }
-                                                                }
-                                                                $wibTime = $submittedTime->setTimezone('Asia/Jakarta');
-                                                            @endphp
-                                                            {{ $wibTime->format('d M Y H:i') }}
-                                                        </div>
-                                                    @endif
-                                                </div>
+                        @if($finding->submitted_at)
+                            <div class="text-muted" style="font-size: 0.75rem; margin-top: 8px; padding-top: 8px; border-top: 1px solid #ddd;">
+                                <i class="bi bi-clock"></i> 
+                                {{ $finding->submitted_at->format('d M Y H:i') }} WIB
+                            </div>
+                        @endif
+                                             </div>
                                             @else
                                                 <span class="text-muted">-</span>
                                             @endif
