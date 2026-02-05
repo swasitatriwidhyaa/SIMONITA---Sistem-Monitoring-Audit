@@ -59,6 +59,7 @@ class AuditController extends Controller
                 'tanggal_audit' => $auditDate->toDateString(),
                 'deadline' => $newDeadline->toDateString(),
                 'auditor_name' => $request->auditor_name,
+
                 'inisial_input' => $request->inisial_input,
             ]);
 
@@ -84,7 +85,7 @@ class AuditController extends Controller
                 'uraian_temuan' => 'required|string|min:10',
                 'std_referensi' => 'nullable|string|max:255',
                 'auditor_nama' => 'nullable|string|max:255',
-                'inisial_input' => 'required|string|max:10',
+                'inisial_input' => 'nullable|string|max:10',
                 'lokasi' => 'required|string|max:255',
                 'akar_masalah' => 'nullable|string',
                 'tindakan_koreksi' => 'nullable|string',
@@ -123,6 +124,7 @@ class AuditController extends Controller
                 'uraian_temuan' => $validated['uraian_temuan'],
                 'std_referensi' => $validated['std_referensi'] ?? null,
                 'auditor_nama' => $validated['auditor_nama'] ?? auth()->user()->name,
+
                 'inisial_input' => $validated['inisial_input'],
                 'auditor_id' => auth()->id(),
                 'lokasi' => $validated['lokasi'],

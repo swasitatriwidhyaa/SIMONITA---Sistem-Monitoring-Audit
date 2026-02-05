@@ -908,6 +908,13 @@
                                 @enderror
                             </div>
 
+                                <div class="col-md-1">
+        <label class="small fw-bold mb-1">Inisial <span class="text-danger">*</span></label>
+        <input type="text" name="inisial_input" class="form-control form-control-sm text-uppercase"
+            placeholder="ABC" required maxlength="10" value="{{ old('inisial_input', strtoupper(substr(Auth::user()->name, 0, 3))) }}"
+            title="Inisial pemeriksa (max 10 karakter)">
+    </div>
+
                             {{-- Lokasi --}}
                             <div class="col-md-2">
                                 <label class="small fw-bold mb-1">Lokasi <span class="text-danger">*</span></label>

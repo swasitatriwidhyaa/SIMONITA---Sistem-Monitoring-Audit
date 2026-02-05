@@ -127,21 +127,71 @@
                     <div class="card-body p-0">
                         <div class="list-group list-group-flush">
                             @forelse($upcomingDeadlines as $item)
+                                @php
+                                    // Pastikan perbandingan dilakukan dari awal hari (00:00:00)
+                                    $now = \Carbon\Carbon::now('Asia/Jakarta')->startOfDay();
+                                    $deadline = \Carbon\Carbon::parse($item->deadline, 'Asia/Jakarta')->startOfDay();
+                                    
+                                    // Hitung selisih hari sebagai INTEGER
+                                    $diffInDays = $now->diffInDays($deadline, false); // false = bisa negatif
+                                    $isOverdue = $diffInDays < 0;
+                                    $daysText = abs($diffInDays);
+                                    
+                                    // Tentukan warna badge dan icon berdasarkan sisa hari
+                                    if ($isOverdue) {
+                                        $badgeClass = 'bg-danger';
+                                        $iconClass = 'bi bi-exclamation-triangle-fill';
+                                        $textLabel = $daysText == 0 ? 'Deadline Hari Ini!' : 'Terlambat ' . $daysText . ' hari';
+                                    } elseif ($diffInDays == 0) {
+                                        $badgeClass = 'bg-danger';
+                                        $iconClass = 'bi bi-alarm-fill';
+                                        $textLabel = 'Hari Ini!';
+                                    } elseif ($diffInDays == 1) {
+                                        $badgeClass = 'bg-warning text-dark';
+                                        $iconClass = 'bi bi-clock-fill';
+                                        $textLabel = 'Besok';
+                                    } elseif ($diffInDays <= 3) {
+                                        $badgeClass = 'bg-warning text-dark';
+                                        $iconClass = 'bi bi-clock-fill';
+                                        $textLabel = $daysText . ' hari lagi';
+                                    } elseif ($diffInDays <= 7) {
+                                        $badgeClass = 'bg-info text-white';
+                                        $iconClass = 'bi bi-clock-fill';
+                                        $textLabel = $daysText . ' hari lagi';
+                                    } else {
+                                        $badgeClass = 'bg-secondary';
+                                        $iconClass = 'bi bi-clock';
+                                        $textLabel = $daysText . ' hari lagi';
+                                    }
+                                @endphp
+                                
                                 <div class="list-group-item d-flex justify-content-between align-items-center px-4 py-3">
-                                    <div class="d-flex align-items-center">
+                                    <div class="d-flex align-items-center flex-grow-1">
                                         <div class="bg-danger bg-opacity-10 text-danger rounded p-2 me-3 text-center" style="width: 50px;">
                                             <small class="d-block fw-bold">{{ \Carbon\Carbon::parse($item->deadline)->format('d') }}</small>
                                             <small class="d-block" style="font-size: 10px;">{{ \Carbon\Carbon::parse($item->deadline)->format('M') }}</small>
                                         </div>
-                                        <div>
+                                        <div class="flex-grow-1">
                                             <h6 class="mb-0 fw-bold text-dark">{{ $item->auditee->name ?? 'Unit' }}</h6>
                                             <small class="text-muted">{{ $item->standard->kode ?? '-' }}</small>
+                                        </div>
+                                    </div>
+                                    
+                                    {{-- SISA WAKTU --}}
+                                    <div class="text-end">
+                                        <span class="badge {{ $badgeClass }} rounded-pill px-3 py-2 fw-bold" style="font-size: 0.85rem;">
+                                            <i class="{{ $iconClass }} me-1"></i>
+                                            {{ $textLabel }}
+                                        </span>
+                                        <div class="small text-muted mt-1" style="font-size: 0.75rem;">
+                                            {{ $deadline->format('d M Y') }}
                                         </div>
                                     </div>
                                 </div>
                             @empty
                                 <div class="text-center py-4 bg-light">
-                                    <p class="text-muted mb-0 small">Semua jadwal audit aman (belum ada yang mendesak).</p>
+                                    <i class="bi bi-check-circle text-success" style="font-size: 2rem;"></i>
+                                    <p class="text-muted mb-0 small mt-2">Semua jadwal audit aman (belum ada yang mendesak).</p>
                                 </div>
                             @endforelse
                         </div>
@@ -337,9 +387,6 @@
 
     {{-- CHART.JS LIBRARY --}}
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
-    
-    <script>
-    </script>
 
     {{-- MODAL DETAIL UNTUK SETIAP STANDAR --}}
     @foreach($standardDetails as $idx => $standard)
