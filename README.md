@@ -1,7 +1,6 @@
 # Sistem Monitoring Audit Internal - PTPN 1 Regional 7
 
 ![Dashboard Preview](public/image/audit-bg.jpg)
-*(Ganti link gambar di atas dengan screenshot dashboard asli kamu nanti)*
 
 
 Sistem Informasi Audit Internal adalah aplikasi berbasis web yang digunakan untuk membantu proses pelaksanaan audit internal perusahaan secara **digital, terpusat, dan paperless**.
